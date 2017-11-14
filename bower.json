@@ -1,0 +1,20 @@
+{
+  "name": "dctb-facial-recognition",
+  "homepage": "https://github.com/diogocezar/dctb-facial-recognition",
+  "authors": [
+    "Diogo Cezar <diogo@diogocezar.com>"
+  ],
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "devDependencies": {
+    "tracking": "tracking.js#^1.1.3"
+  }
+}

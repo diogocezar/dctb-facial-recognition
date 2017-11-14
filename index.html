@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Facial Recognition</title>
+</head>
+<style>
+	video, canvas{
+		position: absolute;
+		border:  1px solid red;
+	}
+</style>
+<body>
+	<video id="video" width="320" height="240" preload autoplay loop muded></video>
+	<canvas id="canvas" width="320" height="240"></canvas>
+	<script src="bower_components/tracking/build/tracking-min.js"></script>
+	<script src="bower_components/tracking/build/data/face-min.js"></script>
+	<script>
+		const Facial = {
+			video: null,
+			canvas : null,
+			context : null,
+			tracker : null,
+			init: () => {
+				console.log('Capturando Elementos');
+				Facial.video = document.getElementById('video');
+				Facial.canvas = document.getElementById('canvas');
+				Facial.context = Facial.canvas.getContext('2d');
+				Facial.tracker = new tracking.ObjectTracker('face');
+				tracking.track('#video', Facial.tracker, {camera:true});
+				Facial.tracker.on('track', event => {
+					Facial.context.clearRect(0,0, Facial.canvas.width, Facial.canvas.height);
+					event.data.forEach(rect => {
+						Facial.context.strokeStyle = '#ff0000';
+						Facial.context.lineWidth = 2;
+						Facial.context.strokeRect(rect.x, rect.y, rect.width, rect.height);
+						Facial.context.fillText(`x: ${rect.x}, w: ${rect.width}`, rect.x+rect.width+20, rect.y+20)
+						Facial.context.fillText(`y: ${rect.x}, h: ${rect.width}`, rect.x+rect.width+20, rect.y+40)
+					});
+				});
+			}
+		}
+		window.onload = Facial.init();
+	</script>
+</body>
+</html>
